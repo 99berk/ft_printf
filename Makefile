@@ -29,11 +29,11 @@ $(NAME): $(OBJECTS)
 
 # Libft derlemesi
 $(LIBFT_OBJ): $(LIBFT_SRC) $(LIBFT_INC)
-	$(CC) $(CFLAGS) -c $(LIBFT_SRC) -I $(LIBFT)
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(LIBFT)
 
 # ft_printf derlemesi
 $(PRINTF_OBJ): $(PRINTF_SRC) $(PRINTF_HEADER)
-	$(CC) $(CFLAGS) -c $(PRINTF_SRC)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJECTS)
@@ -44,3 +44,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
