@@ -11,10 +11,10 @@ NAME = libftprintf.a
 LIBFT = Libft
 LIBFT_INC = $(LIBFT)/libft.h
 LIBFT_SRC = $(wildcard $(LIBFT)/*.c)
-LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
+LIBFT_OBJ = $(patsubst $(LIBFT)/%.c,$(LIBFT)/%.o,$(LIBFT_SRC))
 
 # Proje dosyaları
-PRINTF_SRC = ft_printf.c
+PRINTF_SRC = ft_printf.c ft_print_ptr.c ft_print_hex.c
 PRINTF_HEADER = ft_printf.h
 PRINTF_OBJ = $(PRINTF_SRC:.c=.o)
 
@@ -28,11 +28,11 @@ $(NAME): $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
 
 # Libft derlemesi
-$(LIBFT_OBJ): $(LIBFT_SRC) $(LIBFT_INC)
+$(LIBFT)/%.o: $(LIBFT)/%.c $(LIBFT_INC)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(LIBFT)
 
 # ft_printf derlemesi
-$(PRINTF_OBJ): $(PRINTF_SRC) $(PRINTF_HEADER)
+%.o: %.c $(PRINTF_HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
