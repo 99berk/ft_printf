@@ -14,7 +14,7 @@ LIBFT_SRC = $(wildcard $(LIBFT)/*.c)
 LIBFT_OBJ = $(patsubst $(LIBFT)/%.c,$(LIBFT)/%.o,$(LIBFT_SRC))
 
 # Proje dosyaları
-PRINTF_SRC = ft_printf.c ft_print_ptr.c ft_print_hex.c
+PRINTF_SRC = ft_printf.c ft_print_ptr.c ft_print_hex.c ft_put_utils.c
 PRINTF_HEADER = ft_printf.h
 PRINTF_OBJ = $(PRINTF_SRC:.c=.o)
 

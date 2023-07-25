@@ -10,18 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <unistd.h>
+
+static void	ft_put_s(int i, char *s);
 
 int	ft_print_ptr(void *pointer)
 {
 	unsigned long long	address;
 	static char			hex_digits[] = "0123456789abcdef";
 	int					count;
-	char				buf[50];
+	char				s[50];
 	int					i;
 
 	i = 0;
-	write(1, "0x", 2);
+	if (write(1, "0x", 2) == -1)
+		return (-1);
 	address = (unsigned long long)pointer;
 	count = 2;
 	if (address == 0)
@@ -32,11 +35,16 @@ int	ft_print_ptr(void *pointer)
 	}
 	while (address != 0)
 	{
-		buf[i++] = hex_digits[address % 16];
+		s[i++] = hex_digits[address % 16];
 		address /= 16;
 		count += 1;
 	}
-	while (--i >= 0)
-		write(1, &buf[i], 1);
+	ft_put_s(i, s);
 	return (count);
+}
+
+static void	ft_put_s(int i, char *s)
+{
+	while (--i >= 0)
+		write(1, &s[i], 1);
 }
