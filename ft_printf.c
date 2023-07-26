@@ -32,7 +32,7 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 			tmp = ft_format(format[++i], args);
 		else
-			tmp = write(1, &format[i], 1);
+			tmp = ft_putchar(format[i]);
 		if (tmp == -1)
 			return (-1);
 		len = len + tmp;
@@ -61,35 +61,38 @@ static int	ft_format(char format, va_list args)
 	else if (format == 'X')
 		return (ft_print_hex(va_arg(args, unsigned int), 1));
 	if (format == '%')
-		return (write(1, "%", 1));
+		return (ft_putchar('%'));
 	return (0);
 }
 
 static int	ft_print_str(char *str)
 {
 	char	*s;
+	int		i;
 
+	i = 0;
 	s = str;
 	if (!str)
+	{
 		s = "(null)";
+		i = 6;
+	}
 	if (ft_putstr(s) == -1)
 		return (-1);
-	return (ft_strlen(s));
+	if (str)
+		while (str[i])
+			i++;
+	return (i);
 }
 
 static int	ft_print_num(int num)
 {
-	char	*str_num;
-	int		i;
+	int	tmp;
 
-	str_num = ft_itoa(num);
-	i = 0;
-	if (ft_putnbr(num) == -1)
+	tmp = ft_putnbr(num);
+	if (tmp == -1)
 		return (-1);
-	while (str_num[i])
-		i++;
-	free(str_num);
-	return (i);
+	return (tmp);
 }
 
 static int	ft_print_unum(unsigned int num)
