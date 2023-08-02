@@ -12,31 +12,6 @@
 
 #include "ft_printf.h"
 
-static char	*ft_digits(int upper_case);
-static int	count_hex_digits(unsigned int number);
-static int	get_digit(unsigned int number, int index, char *digits);
-
-int	ft_print_hex(unsigned int number, int upper_case)
-{
-	char	*digits;
-	int		numdigits;
-	int		count;
-
-	count = 0;
-	digits = ft_digits(upper_case);
-	if (number == 0)
-		return (ft_putchar(digits[0]));
-	numdigits = count_hex_digits(number);
-	while (numdigits-- > 0)
-	{
-		if (ft_putchar(get_digit(number, numdigits, digits)) == -1)
-			return (-1);
-		else
-			count++;
-	}
-	return (count);
-}
-
 static int	get_digit(unsigned int number, int index, char *digits)
 {
 	while (index-- > 0)
@@ -66,5 +41,26 @@ static char	*ft_digits(int upper_case)
 		return (upper_digits);
 	else
 		return (lower_digits);
-	return (NULL);
+	return (0);
+}
+
+int	ft_print_hex(unsigned int number, int upper_case)
+{
+	char	*digits;
+	int		numdigits;
+	int		count;
+
+	count = 0;
+	digits = ft_digits(upper_case);
+	if (number == 0)
+		return (ft_putchar(digits[0]));
+	numdigits = count_hex_digits(number);
+	while (numdigits-- > 0)
+	{
+		if (ft_putchar(get_digit(number, numdigits, digits)) == -1)
+			return (-1);
+		else
+			count++;
+	}
+	return (count);
 }

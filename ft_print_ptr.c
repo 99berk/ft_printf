@@ -12,8 +12,27 @@
 
 #include <unistd.h>
 
-static int	count_address_digits(unsigned long address);
-static int	print_hex_digit(unsigned long address, int i);
+static int	count_address_digits(unsigned long address)
+{
+	int	numdigits;
+
+	numdigits = 0;
+	while (address != 0)
+	{
+		address /= 16;
+		numdigits++;
+	}
+	return (numdigits);
+}
+
+static int	print_hex_digit(unsigned long address, int i)
+{
+	static char	hex_digits[] = "0123456789abcdef";
+
+	while (i-- > 0)
+		address /= 16;
+	return (write(1, &hex_digits[address % 16], 1));
+}
 
 int	ft_print_ptr(void *pointer)
 {
@@ -42,27 +61,4 @@ int	ft_print_ptr(void *pointer)
 		}
 	}
 	return (count);
-}
-
-static int	count_address_digits(unsigned long address)
-
-{
-	int	numdigits;
-
-	numdigits = 0;
-	while (address != 0)
-	{
-		address /= 16;
-		numdigits++;
-	}
-	return (numdigits);
-}
-
-static int	print_hex_digit(unsigned long address, int i)
-{
-	static char	hex_digits[] = "0123456789abcdef";
-
-	while (i-- > 0)
-		address /= 16;
-	return (write(1, &hex_digits[address % 16], 1));
 }

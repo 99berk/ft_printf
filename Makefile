@@ -15,7 +15,6 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
 
-
 %.o: %.c $(PRINTF_HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
